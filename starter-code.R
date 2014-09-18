@@ -1,6 +1,5 @@
-library(ggplot2)
+# use install.package("plyr") if you don't it installed already
 library(plyr)
-library(reshape2)
 
 # set working dir to data repository location
 setwd("/path/to/car-reliability")
@@ -51,6 +50,8 @@ dist_issues <- dist_list$issues
 names(dist_issues) <- c("year", "total", "trans", "engine", "ptrain")
 
 rm(dist_list)
+rm(dists)
 
 # create a miles_cut column in data subset to match the distribution set
+# uses the round_any() function from the plyr package
 data$miles_cut <- round_any(data$miles, accuracy = 10000, f = ceiling)

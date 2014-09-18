@@ -40,7 +40,7 @@ Lastly, I've uploaded some starter code, which loads the above data files. The `
 Priming the pump
 ===
 
-To get started with the data set, here are some questions that might help to get you started!
+To get started with the data set, here are some questions that might help to get you started. Obviously, feel free to pave your own way and share your insights/analysis/visualizations!
 - How do the four models compare against each other and the all car distribution in terms of issues and miles?
 - Are any of the models driven more miles per year, on average, than the others?
 - Is there a correlation between issues found upon trade-in and the age of the vehicle?
