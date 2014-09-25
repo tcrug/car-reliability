@@ -40,6 +40,7 @@ I've obtained two files from Steve and Nick:
 - `dist_issues.csv`: distribution of engine/transmission issues extracted from `distribution.csv`
 - `starter-code.csv`: reads in `four-models.csv` and the `dist_*.csv` files above to get you going. I took the liberty of removing 2014 model years (hardly any data), cars with outlier mileages, and also applied the `round_any()` function from the `plyr` package so that the `four-model` data would feature 10k mileage "buckets" like the distribution data.
 - `tcrug_car-challenge.pdf`: the intro presentation from the 25 September 2014 presentation used to intro the challenge... basically a presentation form of the info in this README
+- `accord_*.pdf`: plots generated from the `accord-plotting-code.R` file and used in the intro presentation.
 
 Lastly, I've uploaded some starter code, which loads the above data files. The `distribution.csv` file was exported, presumably, from some sort of database and required some futzing to coerce it into a data frame.
 
