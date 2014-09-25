@@ -24,30 +24,31 @@ It's based on the mechanical inspections conducted by dealerships upon used vehi
 - The current site groups all years of a given model; were there "lemon years" vs. a vast improvement in quality for later years?
 - Some of the visualizations were a bit confusing
 
-The contact link provided an address at duke.edu, so I emailed the site author! I inquired about obtaining a sample data set to fiddle around with some alternative analyses/plots for them. The site authors turned out to be [Steven Lang](https://autos.yahoo.com/blogs/author/steven-lang/), a writer for the Yahoo! auto blog, and [Nick Lariviere](http://blog.wolfram.com/author/nick-lariviere/), and employee at Wolfram.
+The contact link provided an address at duke.edu, so I emailed the site author! I inquired about obtaining a sample data set to fiddle around with some alternative analyses/plots for them. The site authors turned out to be [Steven Lang](https://autos.yahoo.com/blogs/author/steven-lang/), a writer for the Yahoo! auto blog, and [Nick Lariviere](http://blog.wolfram.com/author/nick-lariviere/), an employee at Wolfram.
 
 They were extremely generous and open to sharing some of their data, including sharing it with the TCRUG to see what our group could come up with! I hope that it proves an interesting and relevant data challenge for the group, and will pass along any insights and results back to them.
 
 Files
 ===
 
-I've obtained two files from Steve and Nick:
+I've obtained two main files from Steve and Nick:
 - `four-models.csv`: contains data on four different models of vehicle: Honda Accord, Mini Cooper, Chevy Cavalier, and Toyota Avalon. There is one row per vehicle, and columns are year, make, model, miles, and whether there was an engine or transmission issue.
+- `distribution.csv`: raw data file with distributions (issues and miles) for *all* cars contained in the LTQI data set. It appeared to a database dump, which I munged using code at the bottom of `starter-code.R` if you're skeptical (please check it).
+
+In addition, the following additional files are contained in the repo:
 - `accord.csv`: when I first contacted Steve and Nick to play with the data, they sent me the model subset with the most records, Honda Accords. I've included this if you want to look at one model more easily.
 - `accord-plotting-code.R`: reads in `accord.csv` data and generates the plots used in the presentation if you'd like to see some `ggplot2` code.
-- `distribution.csv`: raw data file with distributions (issues and miles) for *all* cars contained in the LTQI data set. It appeared to a database dump, which I munged using code at the bottom of `starter-code.R` if you're skeptical (please check it).
 - `dist_miles.csv`: distribution of miles extracted from `distribution.csv`
 - `dist_issues.csv`: distribution of engine/transmission issues extracted from `distribution.csv`
-- `starter-code.csv`: reads in `four-models.csv` and the `dist_*.csv` files above to get you going. I took the liberty of removing 2014 model years (hardly any data), cars with outlier mileages, and also applied the `round_any()` function from the `plyr` package so that the `four-model` data would feature 10k mileage "buckets" like the distribution data.
+- `starter-code.R`: reads in `four-models.csv` and the `dist_*.csv` files above to get you going. I took the liberty of removing 2014 model years (hardly any data), cars with outlier mileages, and also applied the `round_any()` function from the `plyr` package so that the `four-model` data would feature 10k mileage "buckets" like the distribution data.
 - `tcrug_car-challenge.pdf`: the intro presentation from the 25 September 2014 presentation used to intro the challenge... basically a presentation form of the info in this README
 - `accord_*.pdf`: plots generated from the `accord-plotting-code.R` file and used in the intro presentation.
 
-Lastly, I've uploaded some starter code, which loads the above data files. The `distribution.csv` file was exported, presumably, from some sort of database and required some futzing to coerce it into a data frame.
 
 Priming the pump
 ===
 
-To get started with the data set, here are some questions that might help to get you started. Obviously, feel free to pave your own way and share your insights/analysis/visualizations!
+Here are some questions that might help to get you started with the data set. Obviously, feel free to pave your own way!
 - How do the four models compare against each other and the all car distribution in terms of issues and miles?
 - Are any of the models driven more miles per year, on average, than the others?
 - Is there a correlation between issues found upon trade-in and the age of the vehicle?
