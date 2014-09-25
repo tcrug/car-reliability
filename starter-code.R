@@ -10,48 +10,58 @@ data <- read.csv("./four-models.csv", header = F)
 names(data) <- c("year", "make", "model", "miles", "trans", "engine")
 
 # purge any oddball miles and 2014's where there are extremely few issues so far
-data <- data[data$miles > 10, ]
+# you may want to purge other years based on n per make/model/year combo
+data <- data[data$miles > 10 & data$miles < 750000, ]
 data <- data[data$year != 2014, ]
 
-# read in the distribution data set, which was pulled from some sort of database (json?)
-# transposing it worked alrightfor a kludgy lapply() conversion to a list -> two data frames
-# eventual output is two data sets with distributions based on the entire data set (all models)
-# - distribution of issues by model year
-# - distribution of mileage, using 10k cuts
-dists <- as.data.frame(t(read.csv("./distribution.csv", header = F)), stringsAsFactors = F)
-
-# don't need the counts by year (column 1) since that's included in the issues set
-dists <- dists[, -1]
-
-# rename the columns and remove the first row (reduncant col names)
-names(dists) <- c("miles", "issues")
-dists <- dists[-1, ]
-
-dist_list <- lapply(dists, function(col) {
-  
-  temp <- col
-  temp <- gsub("\\{", "", temp)
-  temp <- gsub("\\}", "", temp)
-  temp <- temp[temp != ""]
-  
-  temp <- strsplit(temp, ", ")
-  temp <- do.call(rbind, temp)
-  temp <- apply(temp, 2, as.numeric)
-  temp <- as.data.frame(temp)
-  
-  return(temp)
-  
-})
-
-dist_miles <- dist_list$miles
-names(dist_miles) <- c("miles", "count")
-
-dist_issues <- dist_list$issues
-names(dist_issues) <- c("year", "total", "trans", "engine", "ptrain")
-
-rm(dist_list)
-rm(dists)
+# I've munged the database dump I was provided with the miles and issues
+# distributions of all vehicles in the LTQI dataset. Scroll all the way
+# down to see the code that wrangled distribution.csv if you don't trust it!
+dist_issues <- read.csv("./dist_issues.csv")
+dist_miles <- read.csv("./dist_miles.csv")
 
 # create a miles_cut column in data subset to match the distribution set
 # uses the round_any() function from the plyr package
 data$miles_cut <- round_any(data$miles, accuracy = 10000, f = ceiling)
+
+
+########## distribution.csv munging code ##########
+## read in the distribution data set, which was pulled from some sort of database (json?)
+## transposing it worked alrightfor a kludgy lapply() conversion to a list -> two data frames
+## eventual output is two data sets with distributions based on the entire data set (all models)
+## - distribution of issues by model year
+## - distribution of mileage, using 10k cuts
+#dists <- as.data.frame(t(read.csv("./distribution.csv", header = F)), stringsAsFactors = F)
+
+## don't need the counts by year (column 1) since that's included in the issues set
+#dists <- dists[, -1]
+
+## rename the columns and remove the first row (reduncant col names)
+#names(dists) <- c("miles", "issues")
+#dists <- dists[-1, ]
+
+#dist_list <- lapply(dists, function(col) {
+#  
+#  temp <- col
+#  temp <- gsub("\\{", "", temp)
+#  temp <- gsub("\\}", "", temp)
+#  temp <- temp[temp != ""]
+#  
+#  temp <- strsplit(temp, ", ")
+#  temp <- do.call(rbind, temp)
+#  temp <- apply(temp, 2, as.numeric)
+#  temp <- as.data.frame(temp)
+  
+#  return(temp)
+  
+#})
+
+#dist_miles <- dist_list$miles
+#names(dist_miles) <- c("miles", "count")
+
+#dist_issues <- dist_list$issues
+#names(dist_issues) <- c("year", "total", "trans", "engine", "ptrain")
+
+#rm(dist_list)
+#rm(dists)
+##########
